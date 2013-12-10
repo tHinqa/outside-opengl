@@ -3,8 +3,6 @@
 
 package opengl
 
-// import "github.com/tHinqa/outside"
-
 type (
 	fix uintptr
 
@@ -47,6 +45,10 @@ type (
 	GLuint64EXT uint64
 	GLushort    uint16
 	GLvoid      struct{}
+
+	GLUnurbs      struct{}
+	GLUquadric    struct{}
+	GLUtesselator struct{}
 )
 
 type AttribMask GLbitfield
@@ -74,6 +76,17 @@ const (
 	ScissorBit
 	AllAttribBits AttribMask = 0x000fffff
 )
+
+type String GLenum
+
+const (
+	Vendor String = iota + 0x1F00
+	Renderer
+	Version
+	Extensions
+)
+
+type Funcptr func()
 
 var Accum func(op GLenum, value GLfloat)
 var ActiveProgramEXT func(program GLuint)
@@ -1011,7 +1024,7 @@ var GetShaderSource func(shader GLuint, bufSize GLsizei, length *GLsizei, source
 var GetShaderSourceARB func(obj GLhandleARB, maxLength GLsizei, length *GLsizei, source *GLcharARB)
 
 // var GetSharpenTexFuncSGIS func(target GLenum, points *GLfloat)
-var GetString func(name GLenum) *GLubyte
+var GetString func(name String) string
 var GetStringi func(name GLenum, index GLuint) *GLubyte
 
 // var GetSubroutineIndex func(program GLuint, shadertype GLenum, name *GLchar) GLuint
@@ -2660,3 +2673,64 @@ var WindowPos4sMESA func(x, y, z, w GLshort)
 var WindowPos4svMESA func(v *GLshort)
 
 // var WriteMaskEXT func(res, in GLuint, outX, outY, outZ, outW GLenum)
+
+var BeginCurve func(nurb *GLUnurbs)
+var BeginPolygon func(tess *GLUtesselator)
+var BeginSurface func(nurb *GLUnurbs)
+var BeginTrim func(nurb *GLUnurbs)
+var Build1DMipmapLevels func(target GLenum, internalFormat GLint, width GLsizei, format, type_ GLenum, level, base, max GLint, data *void) GLint
+var Build1DMipmaps func(target GLenum, internalFormat GLint, width GLsizei, format, type_ GLenum, data *void) GLint
+var Build2DMipmapLevels func(target GLenum, internalFormat GLint, width, height GLsizei, format, type_ GLenum, level, base, max GLint, data *void) GLint
+var Build2DMipmaps func(target GLenum, internalFormat GLint, width, height GLsizei, format, type_ GLenum, data *void) GLint
+var Build3DMipmapLevels func(target GLenum, internalFormat GLint, width, height, depth GLsizei, format, type_ GLenum, level, base, max GLint, data *void) GLint
+var Build3DMipmaps func(target GLenum, internalFormat GLint, width, height, depth GLsizei, format, type_ GLenum, data *void) GLint
+var CheckExtension func(extName, extString *GLubyte) GLboolean
+var Cylinder func(quad *GLUquadric, base, top, height GLdouble, slices, stacks GLint)
+var DeleteNurbsRenderer func(nurb *GLUnurbs)
+var DeleteQuadric func(quad *GLUquadric)
+var DeleteTess func(tess *GLUtesselator)
+var Disk func(quad *GLUquadric, inner, outer GLdouble, slices, loops GLint)
+var EndCurve func(nurb *GLUnurbs)
+var EndPolygon func(tess *GLUtesselator)
+var EndSurface func(nurb *GLUnurbs)
+var EndTrim func(nurb *GLUnurbs)
+var ErrorString func(err GLenum) *GLubyte
+var GetNurbsProperty func(nurb *GLUnurbs, property GLenum, data *GLfloat)
+
+// var GetString func(name GLenum) *GLubyte
+var GetTessProperty func(tess *GLUtesselator, which GLenum, data *GLdouble)
+var LoadSamplingMatrices func(nurb *GLUnurbs, model, perspective *GLfloat, view *GLint)
+var LookAt func(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ GLdouble)
+var NewNurbsRenderer func(void) *GLUnurbs
+var NewQuadric func(void) *GLUquadric
+var NewTess func(void) *GLUtesselator
+var NextContour func(tess *GLUtesselator, type_ GLenum)
+var NurbsCallback func(nurb *GLUnurbs, which GLenum, CallBackFunc Funcptr)
+var NurbsCallbackData func(nurb *GLUnurbs, userData *GLvoid)
+var NurbsCallbackDataEXT func(nurb *GLUnurbs, userData *GLvoid)
+var NurbsCurve func(nurb *GLUnurbs, knotCount GLint, knots *GLfloat, stride GLint, control *GLfloat, order GLint, type_ GLenum)
+var NurbsProperty func(nurb *GLUnurbs, property GLenum, value GLfloat)
+var NurbsSurface func(nurb *GLUnurbs, sKnotCount GLint, sKnots *GLfloat, tKnotCount GLint, tKnots *GLfloat, sStride, tStride GLint, control *GLfloat, sOrder, tOrder GLint, type_ GLenum)
+var Ortho2D func(left, right, bottom, top GLdouble)
+var PartialDisk func(quad *GLUquadric, inner, outer GLdouble, slices, loops GLint, start, sweep GLdouble)
+var Perspective func(fovy, aspect, zNear, zFar GLdouble)
+var PickMatrix func(x, y, delX, delY GLdouble, viewport *GLint)
+var Project func(objX, objY, objZ GLdouble, model, proj *GLdouble, view *GLint, winX, winY, winZ *GLdouble) GLint
+var PwlCurve func(nurb *GLUnurbs, count GLint, data *GLfloat, stride GLint, type_ GLenum)
+var QuadricCallback func(quad *GLUquadric, which GLenum, CallBackFunc Funcptr)
+var QuadricDrawStyle func(quad *GLUquadric, draw GLenum)
+var QuadricNormals func(quad *GLUquadric, normal GLenum)
+var QuadricOrientation func(quad *GLUquadric, orientation GLenum)
+var QuadricTexture func(quad *GLUquadric, texture GLboolean)
+var ScaleImage func(format GLenum, wIn, hIn GLsizei, typeIn GLenum, dataIn *void, wOut, hOut GLsizei, typeOut GLenum, dataOut *GLvoid) GLint
+var Sphere func(quad *GLUquadric, radius GLdouble, slices, stacks GLint)
+var TessBeginContour func(tess *GLUtesselator)
+var TessBeginPolygon func(tess *GLUtesselator, data *GLvoid)
+var TessCallback func(tess *GLUtesselator, which GLenum, CallBackFunc Funcptr)
+var TessEndContour func(tess *GLUtesselator)
+var TessEndPolygon func(tess *GLUtesselator)
+var TessNormal func(tess *GLUtesselator, valueX, valueY, valueZ GLdouble)
+var TessProperty func(tess *GLUtesselator, which GLenum, data GLdouble)
+var TessVertex func(tess *GLUtesselator, location *GLdouble, data *GLvoid)
+var UnProject func(winX, winY, winZ GLdouble, model, proj *GLdouble, view *GLint, objX, objY, objZ *GLdouble) GLint
+var UnProject4 func(winX, winY, winZ, clipW GLdouble, model, proj *GLdouble, view *GLint, nearVal, farVal GLdouble, objX, objY, objZ, objW *GLdouble) GLint

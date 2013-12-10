@@ -3,13 +3,18 @@
 
 // +build linux
 
-//Package opengl provides API definitions for accessing the
-//opengl dll.
+//Package opengl provides API definitions for accessing
+//libGL.so and libGLU.so.
 package opengl
 
 import "github.com/tHinqa/outside"
 
-var allApis = outside.Apis{
+func init() {
+	outside.AddDllApis("libGL.so", false, glApis)
+	outside.AddDllApis("libGLU.so", false, gluApis)
+}
+
+var glApis = outside.Apis{
 	{"glAccum", &Accum},
 	{"glActiveProgramEXT", &ActiveProgramEXT},
 	{"glActiveTexture", &ActiveTexture},
@@ -1334,4 +1339,66 @@ var allApis = outside.Apis{
 	// {"glXUseXFont", &XUseXFont},
 	// {"glXWaitGL", &XWaitGL},
 	// {"glXWaitX", &XWaitX},
+}
+
+var gluApis = outside.Apis{
+	{"gluBeginCurve", &BeginCurve},
+	{"gluBeginPolygon", &BeginPolygon},
+	{"gluBeginSurface", &BeginSurface},
+	{"gluBeginTrim", &BeginTrim},
+	{"gluBuild1DMipmapLevels", &Build1DMipmapLevels},
+	{"gluBuild1DMipmaps", &Build1DMipmaps},
+	{"gluBuild2DMipmapLevels", &Build2DMipmapLevels},
+	{"gluBuild2DMipmaps", &Build2DMipmaps},
+	{"gluBuild3DMipmapLevels", &Build3DMipmapLevels},
+	{"gluBuild3DMipmaps", &Build3DMipmaps},
+	{"gluCheckExtension", &CheckExtension},
+	{"gluCylinder", &Cylinder},
+	{"gluDeleteNurbsRenderer", &DeleteNurbsRenderer},
+	{"gluDeleteQuadric", &DeleteQuadric},
+	{"gluDeleteTess", &DeleteTess},
+	{"gluDisk", &Disk},
+	{"gluEndCurve", &EndCurve},
+	{"gluEndPolygon", &EndPolygon},
+	{"gluEndSurface", &EndSurface},
+	{"gluEndTrim", &EndTrim},
+	{"gluErrorString", &ErrorString},
+	{"gluGetNurbsProperty", &GetNurbsProperty},
+	{"gluGetString", &GetString},
+	{"gluGetTessProperty", &GetTessProperty},
+	{"gluLoadSamplingMatrices", &LoadSamplingMatrices},
+	{"gluLookAt", &LookAt},
+	{"gluNewNurbsRenderer", &NewNurbsRenderer},
+	{"gluNewQuadric", &NewQuadric},
+	{"gluNewTess", &NewTess},
+	{"gluNextContour", &NextContour},
+	{"gluNurbsCallback", &NurbsCallback},
+	{"gluNurbsCallbackData", &NurbsCallbackData},
+	{"gluNurbsCallbackDataEXT", &NurbsCallbackDataEXT},
+	{"gluNurbsCurve", &NurbsCurve},
+	{"gluNurbsProperty", &NurbsProperty},
+	{"gluNurbsSurface", &NurbsSurface},
+	{"gluOrtho2D", &Ortho2D},
+	{"gluPartialDisk", &PartialDisk},
+	{"gluPerspective", &Perspective},
+	{"gluPickMatrix", &PickMatrix},
+	{"gluProject", &Project},
+	{"gluPwlCurve", &PwlCurve},
+	{"gluQuadricCallback", &QuadricCallback},
+	{"gluQuadricDrawStyle", &QuadricDrawStyle},
+	{"gluQuadricNormals", &QuadricNormals},
+	{"gluQuadricOrientation", &QuadricOrientation},
+	{"gluQuadricTexture", &QuadricTexture},
+	{"gluScaleImage", &ScaleImage},
+	{"gluSphere", &Sphere},
+	{"gluTessBeginContour", &TessBeginContour},
+	{"gluTessBeginPolygon", &TessBeginPolygon},
+	{"gluTessCallback", &TessCallback},
+	{"gluTessEndContour", &TessEndContour},
+	{"gluTessEndPolygon", &TessEndPolygon},
+	{"gluTessNormal", &TessNormal},
+	{"gluTessProperty", &TessProperty},
+	{"gluTessVertex", &TessVertex},
+	{"gluUnProject", &UnProject},
+	{"gluUnProject4", &UnProject4},
 }

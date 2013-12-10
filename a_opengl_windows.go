@@ -2,16 +2,17 @@
 // See LICENCE file for permissions and restrictions.
 
 //Package opengl provides API definitions for accessing
-//opengl32.dll.
+//opengl32.dll and glu32.dll.
 package opengl
 
 import "github.com/tHinqa/outside"
 
 func init() {
-	outside.AddDllApis("opengl32.dll", false, allApis)
+	outside.AddDllApis("opengl32.dll", false, glApis)
+	outside.AddDllApis("glu32.dll", false, gluApis)
 }
 
-var allApis = outside.Apis{
+var glApis = outside.Apis{
 	// "GlmfBeginGlsBlock",
 	// "GlmfCloseMetaFile",
 	// "GlmfEndGlsBlock",
@@ -1369,4 +1370,59 @@ var allApis = outside.Apis{
 	// "wglUseFontBitmapsW",
 	// "wglUseFontOutlinesA",
 	// "wglUseFontOutlinesW",
+}
+
+var gluApis = outside.Apis{
+	{"gluBeginCurve", &BeginCurve},
+	{"gluBeginPolygon", &BeginPolygon},
+	{"gluBeginSurface", &BeginSurface},
+	{"gluBeginTrim", &BeginTrim},
+	{"gluBuild1DMipmaps", &Build1DMipmaps},
+	{"gluBuild2DMipmaps", &Build2DMipmaps},
+	{"gluCylinder", &Cylinder},
+	{"gluDeleteNurbsRenderer", &DeleteNurbsRenderer},
+	{"gluDeleteQuadric", &DeleteQuadric},
+	{"gluDeleteTess", &DeleteTess},
+	{"gluDisk", &Disk},
+	{"gluEndCurve", &EndCurve},
+	{"gluEndPolygon", &EndPolygon},
+	{"gluEndSurface", &EndSurface},
+	{"gluEndTrim", &EndTrim},
+	{"gluErrorString", &ErrorString},
+	// {"gluErrorUnicodeStringEXT", &ErrorString}, //TODO(t):???
+	{"gluGetNurbsProperty", &GetNurbsProperty},
+	// TODO(t): Difference gl/glu {"gluGetString", &GetString},
+	{"gluGetTessProperty", &GetTessProperty},
+	{"gluLoadSamplingMatrices", &LoadSamplingMatrices},
+	{"gluLookAt", &LookAt},
+	{"gluNewNurbsRenderer", &NewNurbsRenderer},
+	{"gluNewQuadric", &NewQuadric},
+	{"gluNewTess", &NewTess},
+	{"gluNextContour", &NextContour},
+	{"gluNurbsCallback", &NurbsCallback},
+	{"gluNurbsCurve", &NurbsCurve},
+	{"gluNurbsProperty", &NurbsProperty},
+	{"gluNurbsSurface", &NurbsSurface},
+	{"gluOrtho2D", &Ortho2D},
+	{"gluPartialDisk", &PartialDisk},
+	{"gluPerspective", &Perspective},
+	{"gluPickMatrix", &PickMatrix},
+	{"gluProject", &Project},
+	{"gluPwlCurve", &PwlCurve},
+	{"gluQuadricCallback", &QuadricCallback},
+	{"gluQuadricDrawStyle", &QuadricDrawStyle},
+	{"gluQuadricNormals", &QuadricNormals},
+	{"gluQuadricOrientation", &QuadricOrientation},
+	{"gluQuadricTexture", &QuadricTexture},
+	{"gluScaleImage", &ScaleImage},
+	{"gluSphere", &Sphere},
+	{"gluTessBeginContour", &TessBeginContour},
+	{"gluTessBeginPolygon", &TessBeginPolygon},
+	{"gluTessCallback", &TessCallback},
+	{"gluTessEndContour", &TessEndContour},
+	{"gluTessEndPolygon", &TessEndPolygon},
+	{"gluTessNormal", &TessNormal},
+	{"gluTessProperty", &TessProperty},
+	{"gluTessVertex", &TessVertex},
+	{"gluUnProject", &UnProject},
 }
